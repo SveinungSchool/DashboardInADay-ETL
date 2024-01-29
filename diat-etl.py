@@ -1,4 +1,4 @@
-import pandas as pd
+rm import pandas as pd
 from os import listdir
 from os.path import isfile, join
 from sqlalchemy.orm import Session
@@ -8,8 +8,11 @@ import db
 from db import create_database
 import os
 
-### set this
+### set this to the folder containing the data
 path = "C:\\data\\diad-student-english\\Data\\"
+#example for linux linux
+#path = "~/msData"
+
 excelPath = os.path.join(path, "USSales", "bi_dimensions.xlsx")
 batchSize = 500000
 
@@ -58,7 +61,7 @@ def insertSales(dfSales):
     session.commit()
 
 def getAndinsertSales():
-    usSales = pd.read_csv( os.path.join( path , "USSales" , "sales.csv") )
+    usSales = pd.read_csv( os.path.join( path , "USSales" , "Sales.csv") )
     usSales["Country"]="USA"
     insertSales(usSales)
 
