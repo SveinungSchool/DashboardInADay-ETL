@@ -1,4 +1,4 @@
-rm import pandas as pd
+import pandas as pd
 from os import listdir
 from os.path import isfile, join
 from sqlalchemy.orm import Session
@@ -10,8 +10,8 @@ import os
 
 ### set this to the folder containing the data
 path = "C:\\data\\diad-student-english\\Data\\"
-#example for linux linux
-#path = "~/msData"
+#example for linux. Using ~ causes some problems
+#path = "/home/someUser/msData/"
 
 excelPath = os.path.join(path, "USSales", "bi_dimensions.xlsx")
 batchSize = 500000
@@ -66,7 +66,7 @@ def getAndinsertSales():
     insertSales(usSales)
 
     folderPath = os.path.join(path,"InternationalSales")
-    csvfiles = [f for f in listdir(folderPath) if isfile(join(folderPath, f)) and f.endswith(".csv")]
+    csvfiles = [f for f in listdir(folderPath) if isfile(os.path.join(folderPath, f)) and f.endswith(".csv")]
     for csv in csvfiles:
         sales = pd.read_csv( os.path.join( folderPath, csv))
         insertSales(sales)
